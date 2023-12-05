@@ -2,13 +2,13 @@ package com.beta.replyservice;
 
 public class ReplyMessage {
 
-	private final String message;
+	private final String data;
 
-	public ReplyMessage(String message) {
-		this.message = message;
+	public ReplyMessage(String data) {
+		this.data = data;
 	}
 
-	public String getMessage() {
-		return message;
+	public String getData() {
+		return data;
 	}
 }
