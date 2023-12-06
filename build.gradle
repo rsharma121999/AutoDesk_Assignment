@@ -4,6 +4,12 @@ plugins {
 	id 'java'
 }
 
+/*java {
+	sourceCompatibility = 'VERSION_17' // Set your desired Java version here
+	targetCompatibility = 'VERSION_17'
+}*/
+
+
 group = 'com.beta'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '1.8'
@@ -18,7 +24,10 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	// https://mvnrepository.com/artifact/org.mockito/mockito-all
-	testImplementation group: 'org.mockito', name: 'mockito-all', version: '1.9.5'
+	testImplementation group: 'org.mockito', name: 'mockito-core', version: '4.9.0'
+	implementation group: 'net.bytebuddy', name: 'byte-buddy', version: '1.12.20'
+	// https://mvnrepository.com/artifact/org.projectlombok/lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
 
 }
 

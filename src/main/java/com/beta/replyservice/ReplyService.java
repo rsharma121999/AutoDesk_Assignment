@@ -14,9 +14,10 @@ public class ReplyService {
         return replyService;
     }*/
 
-    public String applyRules(String input, String rule) {
-        for (char ruleChar : rule.toCharArray()) {
-            switch (ruleChar) {
+    public String applyRules(String input, String rule) throws Exception{
+        try {
+            for (char ruleChar : rule.toCharArray()) {
+            /*switch (ruleChar) {
                 case '1':
                     input = new StringBuilder(input).reverse().toString();
                     break;
@@ -24,8 +25,20 @@ public class ReplyService {
                     input = encodeMD5(input);
                     break;
                 default:
-                    throw new IllegalArgumentException("Invalid rule: " + ruleChar);
+                    throw new IllegalArgumentException("Invalid rule: " + ruleChar);*/
+
+                if (ruleChar == '1') {
+                    input = new StringBuilder(input).reverse().toString();
+                }
+                else if (ruleChar == '2') {
+                    input = encodeMD5(input);
+                }
+                else
+                    throw new IllegalArgumentException("enter valid input");
             }
+        }
+        catch (Exception e){
+            throw new IllegalArgumentException(e);
         }
         return input;
     }

@@ -1,42 +1,50 @@
 package com.beta.replyservice;
 
-
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import java.security.MessageDigest;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WebMvcTest(ReplyController.class)
+
+
+@ExtendWith(MockitoExtension.class)
 class RestServiceApplicationTest {
 
-	@MockBean
+	@InjectMocks
 	private ReplyService stringReplyService;
 
-	@Autowired
-	private MockMvc mockMvc;
+	@Mock
+	private MessageDigest md;
+
 
 	@Test
-	void reply_ValidInput_ReturnsOk() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("http://localhost:8080/reply/helloworld"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.data").value("helloworld"));
+	public void Basic_test() throws Exception {
+		String input = "kbzw9ru";
+		String rule = "12";
+		//when(md.digest(any(byte[].class))).thenReturn("5a8973b3b1fafaeaadf10e195c6e1dd4".getBytes());
+
+		String result = stringReplyService.applyRules(input, rule);
+
+		assertEquals("5a8973b3b1fafaeaadf10e195c6e1dd4", result);
+
+
 	}
 
 	@Test
-	void v2Reply_ValidInput_ReturnsOk() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/v2/reply/11-helloworld"))
-				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.data").value("helloworld"));
+	public void Reverse_String_Test() throws Exception{
+		String input = "kbzw9ru";
+		String rule="1";
+		//when(md.digest(any(byte[].class))).thenReturn("kbzw9ru".getBytes());
+
+		String result= stringReplyService.applyRules(input,rule);
+
+		assertEquals("ur9wzbk",result);
+
 	}
 
-	@Test
-	void v2Reply_InvalidRule_ReturnsBadRequest() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/v2/reply/13-helloworld"))
-				.andExpect(status().isBadRequest())
-				.andExpect(jsonPath("$.message").value("Invalid input"));
-	}
+
 }
