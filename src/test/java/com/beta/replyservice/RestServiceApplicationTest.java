@@ -17,8 +17,8 @@ class RestServiceApplicationTest {
 	@InjectMocks
 	private ReplyService stringReplyService;
 
-	@Mock
-	private MessageDigest md;
+	/*@Mock
+	private MessageDigest md;*/
 
 
 	@Test
